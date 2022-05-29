@@ -1,1 +1,1 @@
-# DeepPavlov docker http servers with examples
+# DeepPavlov GPU docker http servers with examples
