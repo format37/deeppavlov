@@ -26,16 +26,21 @@ services:
   sentiment:
     deploy:
       mode: replicated
-      replicas: 0
+      replicas: 1
       resources:
         reservations:
           devices:
           - driver: nvidia
-            device_ids: ['0']
+            device_ids: ['1']
             capabilities: [gpu]
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
     build: sentiment
+    ports:
+      - 10001:10001
     environment:
       - TZ=Europe/Moscow
+      - PORT=10001
+      #- CONFIG=sentiment_bert
+      - CONFIG=rusentiment_bert
