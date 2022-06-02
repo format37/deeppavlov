@@ -16,10 +16,10 @@ services:
       - /etc/timezone:/etc/timezone:ro
     build: paraphrase
     ports:
-      - 8090:8090
+      - 10000:10000
     environment:
       - TZ=Europe/Moscow
-      - PORT=8090
+      - PORT=10000
       #- CONFIG=paraphraser_bert
       - CONFIG=paraphraser_rubert
 
@@ -44,3 +44,25 @@ services:
       - PORT=10001
       #- CONFIG=sentiment_bert
       - CONFIG=rusentiment_bert
+
+  textqa:
+    deploy:
+      mode: replicated
+      replicas: 1
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            device_ids: ['0']
+            capabilities: [gpu]
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    build: textqa
+    ports:
+      - 10002:10002
+    environment:
+      - TZ=Europe/Moscow
+      - PORT=10002
+      #- CONFIG=squad_bert
+      - CONFIG=squad_ru
