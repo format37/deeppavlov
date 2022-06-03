@@ -4,14 +4,19 @@ import os
 import json
 import torch
 from transformers import MBartTokenizer, MBartForConditionalGeneration
+#from transformers import AutoTokenizer, EncoderDecoderModel
 from datetime import datetime
 
 # init summarizer
-model_name = "IlyaGusev/mbart_ru_sum_gazeta"
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
-#device = os.environ.get('DEVICE', '')
+model_name = "IlyaGusev/mbart_ru_sum_gazeta"
 tokenizer = MBartTokenizer.from_pretrained(model_name)
 model = MBartForConditionalGeneration.from_pretrained(model_name).to(device)
+#model_name = "IlyaGusev/rubert_telegram_headlines"
+#tokenizer = AutoTokenizer.from_pretrained(model_name, do_lower_case=False, do_basic_tokenize=False, strip_accents=False)
+#model = EncoderDecoderModel.from_pretrained(model_name)
+model = model.to(device)
+
 print(datetime.now(), 'ready', device)
 
 
@@ -25,21 +30,22 @@ async def call_inference(request):
 	request = json.loads(request_str)
 	print(datetime.now(), 'received request:',len(request['in_text']))
 
-	input_ids = tokenizer.prepare_seq2seq_batch(
+	#input_ids = tokenizer.prepare_seq2seq_batch(
+	input_ids = tokenizer(
 		[request['in_text']],
-		src_lang="en_XX", # fairseq training artifact
-		return_tensors="pt",
+		#add_special_tokens=True,
+		max_length=int(request['in_max_length']),
 		padding="max_length",
-		truncation=True,
-		max_length=int(request['in_max_length']) # 600
-	).to(device)["input_ids"]
+		truncation=True,		
+		return_tensors="pt"
+		).to(device)["input_ids"]
 
 	output_ids = model.generate(
 		input_ids=input_ids,
-		max_length=162,
+		max_length=int(request['out_max_length']),
 		no_repeat_ngram_size=request['out_no_repeat_ngram_size'], # 3
-		num_beams=request['out_num_beams'], # 5
-		top_k=request['out_top_k'] # 0
+		#num_beams=request['out_num_beams'], # 5
+		#top_p=request['out_top_p'] # 0
 	)[0]
 
 	summary = tokenizer.decode(output_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)
