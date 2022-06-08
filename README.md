@@ -21,10 +21,13 @@ sudo docker-compose up --build -d
 ```
 And test the service, with one of examples below
 ## Deeppavlov paraphrase
-This GPU service receives a two lists of phrases.
-And returns a list[n], wich defines, is list_a[n] and list_b[n] are paraphrase or not.  
-Usage example: [examples/paraphrase.ipynb](https://github.com/format37/nlp/blob/main/examples/paraphrase.ipynb)
+Docker services, receives two lists of phrases.  
+Returns a list[n] of int values: 0 or 1, wich defines, is list_a[n] and list_b[n] are paraphrase or not.  
+Example: [paraphrase.ipynb](https://github.com/format37/nlp/blob/main/examples/paraphrase.ipynb)
 ### Deeppavlov sentiment
-
+Docker services, receives one list of phrases.  
+Returns a list[n] of sentiment categories ['positive', 'neutral', 'negative', 'speech'], for each list[n] phrase.  
+Example: [sentiment.ipynb](https://github.com/format37/nlp/blob/main/examples/sentiment.ipynb)
 ### Deeppavlov textqa
+
 ### Summarus
