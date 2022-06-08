@@ -7,12 +7,24 @@ cd nlp
 mv docker-compose.yml.default docker-compose.yml
 ```
 Open and edit docker-compose.yml  
-To enable the selected service, set according service replicas: 1  
-Define, wich nvidia gpu adapter used for service, starting from 0. device_ids: ['0']
+To enable the selected service, set according service replicas parameter:
+```
+replicas: 1  
+```
+Define, wich nvidia gpu adapter used for service, starting from 0:
+```
+device_ids: ['0']
+```
+Run:
+```
+sudo docker-compose up --build -d
+```
+And test the service, with one of examples below
 ## Deeppavlov paraphrase
 This GPU service receives a two lists of phrases.
 And returns a list[n], wich defines, is list_a[n] and list_b[n] are paraphrase or not.  
 Usage example: [examples/paraphrase.ipynb](https://github.com/format37/nlp/blob/main/examples/paraphrase.ipynb)
 ### Deeppavlov sentiment
+
 ### Deeppavlov textqa
 ### Summarus
