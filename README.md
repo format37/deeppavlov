@@ -36,7 +36,8 @@ Docker service, receives two lists:
   
 Returns two lists:
 * questions
-* answers
+* answers  
+  
 Example: [textqa.ipynb](https://github.com/format37/nlp/blob/main/examples/textqa.ipynb)
 ### Summarus
 Docker service, receives one string of Russian text.  
