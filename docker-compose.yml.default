@@ -4,7 +4,7 @@ services:
   paraphrase:
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 0
       resources:
         reservations:
           devices:
@@ -20,18 +20,18 @@ services:
     environment:
       - TZ=Europe/Moscow
       - PORT=10000
-      #- CONFIG=paraphraser_bert
-      - CONFIG=paraphraser_rubert
+      - CONFIG=paraphraser_bert
+      #- CONFIG=paraphraser_rubert
 
   sentiment:
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 0
       resources:
         reservations:
           devices:
           - driver: nvidia
-            device_ids: ['1']
+            device_ids: ['0']
             capabilities: [gpu]
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -42,13 +42,13 @@ services:
     environment:
       - TZ=Europe/Moscow
       - PORT=10001
-      #- CONFIG=sentiment_bert
-      - CONFIG=rusentiment_bert
+      - CONFIG=sentiment_bert
+      #- CONFIG=rusentiment_bert
 
   textqa:
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 0
       resources:
         reservations:
           devices:
@@ -64,5 +64,30 @@ services:
     environment:
       - TZ=Europe/Moscow
       - PORT=10002
-      #- CONFIG=squad_bert
-      - CONFIG=squad_ru
+      - CONFIG=squad_bert
+      #- CONFIG=squad_ru
+
+  summarus:
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 0
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            device_ids: ['0']
+            capabilities: [gpu]
+      #  limits:
+      #    cpus: '29'
+      #    #memory: 50M
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    build: summarus
+    ports:
+      - 10003:10003
+    environment:
+      - PORT=10003
+      - TZ=Europe/Moscow
