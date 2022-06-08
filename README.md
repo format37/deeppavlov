@@ -1,1 +1,1 @@
-# DeepPavlov GPU docker http servers with examples
+# Natural language processing services
