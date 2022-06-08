@@ -33,6 +33,7 @@ Example: [sentiment.ipynb](https://github.com/format37/nlp/blob/main/examples/se
 Docker service, receives two lists:
 * texts
 * questions  
+  
 Returns two lists:
 * questions
 * answers
