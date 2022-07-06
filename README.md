@@ -43,3 +43,20 @@ Example: [textqa.ipynb](https://github.com/format37/nlp/blob/main/examples/textq
 Docker service, receives one string of Russian text.  
 Returns one summarized string of text.  
 Example: [summarus.ipynb](https://github.com/format37/nlp/blob/main/examples/summarus.ipynb)
+### Parse unstructured data
+Direct openai api request, using text-davinci-002 model, to parse unstructured data.  
+For example, having a prompt:   
+```
+Alex: How much you paid for pizza?
+Jane: I paid $7 for my piece of pizza
+Max: I am not eating that pizza
+Alex: Ok, then my piece was $12
+```
+Unparsed answer looks like:  
+```
+|------|-------|
+| Alex | $12   |
+| Jane | $7    |
+| Max  | $0    |
+```
+(Example)[x]
