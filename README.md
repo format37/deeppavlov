@@ -59,4 +59,4 @@ Unparsed answer looks like:
 | Jane | $7    |
 | Max  | $0    |
 ```
-(Example)[x]
+[Example](https://github.com/format37/nlp/blob/main/parse_unstructured_data/parser.ipynb)
