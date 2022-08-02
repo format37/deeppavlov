@@ -91,3 +91,21 @@ services:
     environment:
       - PORT=10003
       - TZ=Europe/Moscow
+
+  transformers:
+    deploy:
+      mode: replicated
+      replicas: 0
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            device_ids: ['0']
+            capabilities: [gpu]
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./data:/app/data:rw
+    build: transformers
+    environment:
+      - TZ=Europe/Moscow
