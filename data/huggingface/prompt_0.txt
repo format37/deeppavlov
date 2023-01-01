@@ -21,6 +21,4 @@ Here are my latest interaction batches in machine readable json format:
         "obstruction_distance": 319,
         "my_thoughs": "I hope to find something soon.",
         "my_speech": "",
-        "my_action": ["look ahead"]
-    },
-    {
+        "my_action": [
