@@ -6,4 +6,4 @@
 container_id=$(docker ps | grep nlp_transformers | awk '{print $1}')
 echo "container id: $container_id"
 # connect to container
-docker exec -it $container_id /bin/bash
+sudo docker exec -it $container_id /bin/bash
